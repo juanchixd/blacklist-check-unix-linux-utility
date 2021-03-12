@@ -57,10 +57,7 @@ loopthroughblacklists() {
 
       if [[ $listed ]]; then
 
-        if [[ $listed == *"timed out"* ]]; then
-
-          echo "[timed out]" | cecho YELLOW 
-        else
+        if [[ $listed != *"timed out"* ]]; then
           printf $(env tz=utc date "+%y-%m-%d_%h:%m:%s_%z")
           printf "%-40s" " ${reverse}.${bl}."
           echo "[blacklisted] (${listed})" | cecho LRED
