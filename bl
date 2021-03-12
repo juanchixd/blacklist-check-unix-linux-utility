@@ -53,9 +53,6 @@ loopthroughblacklists() {
 
   for bl in ${blacklists} ; do
 
-      printf $(env tz=utc date "+%y-%m-%d_%h:%m:%s_%z")
-      printf "%-40s" " ${reverse}.${bl}."
-
       listed="$(dig +short -t a ${reverse}.${bl}.)"
 
       if [[ $listed ]]; then
@@ -64,12 +61,10 @@ loopthroughblacklists() {
 
           echo "[timed out]" | cecho YELLOW 
         else
-        
+          printf $(env tz=utc date "+%y-%m-%d_%h:%m:%s_%z")
+          printf "%-40s" " ${reverse}.${bl}."
           echo "[blacklisted] (${listed})" | cecho LRED
         fi
-      else
-
-          echo "[not listed]" | cecho LGREEN
       fi
   done
 }
